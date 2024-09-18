@@ -1,0 +1,72 @@
+﻿@{
+	ViewBag.Title = "Edit";
+}
+
+@model Klienci
+
+<form class="row g-3" asp-action="Edit" asp-controller="Test" method="post">
+	<input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+	<div class="col-md-6">
+		<label class="form-label" for="Name">
+			Podaj imię:
+		</label>
+		<input value="@Model.Name" class="form-control" type="text" id="Name" name="Name" maxlength="50" required />
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="Surname">
+			Podaj nazwisko
+		</label>
+		<input value="@Model.Surname" class="form-control" type="text" id="Surname" name="Surname" maxlength="50" required />
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="PESEL">
+			Podaj numer PESEL
+		</label>
+		<input value="@Model.PESEL" class="form-control" type="text" id="PESEL" name="PESEL" minlength="11" maxlength="11" required />
+		@Html.ValidationMessageFor(m => m.PESEL)
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="BirthYear">
+			Rok urodzenia:
+		</label>
+		<input value="@Model.BirthYear" class="form-control" style="cursor: not-allowed;" type="number" id="BirthYear" name="BirthYear" readonly />
+		@Html.ValidationMessageFor(m => m.BirthYear)
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="Płeć">
+			Płeć
+		</label>
+		<input value="@Model.Płeć" class="form-control" style="cursor: not-allowed;" type="number" id="Płeć" name="Płeć" readonly />
+		@Html.ValidationMessageFor(m => m.Płeć)
+	</div>
+
+	<div class="col-12">
+		<button class="btn btn-primary" id="submit-btn" type="submit">Zapisz</button>
+	</div>
+</form>
+<script>
+	const genderElement = document.getElementById("Płeć");
+	const birthyearElement = document.getElementById("BirthYear");
+	const peselElement = document.getElementById("PESEL");
+	peselElement.addEventListener("change", () => {
+		const pesel = peselElement.value;
+		genderElement.value = pesel[9] % 2 == 0 ? 1 : 2;
+		let month = parseInt(pesel.substring(2, 4));
+		let year = parseInt(pesel.substring(0, 2));
+		if (month <= 12) {
+			year += 1900;
+		} else if (month <= 32) {
+			year += 2000;
+		} else if (month <= 52) {
+			year += 2100;
+		} else if (month <= 72) {
+			year += 1800;
+		}
+		birthyearElement.value = year;
+	});
+</script>

@@ -1,7 +1,14 @@
-﻿@model IEnumerable<Klient>
+﻿@{
+	ViewBag.Title = "Index";
+}
 
-<h2>Klienci</h2>
-<table>
+@model IEnumerable<Klienci>
+
+<h2 class="text-center">Klienci</h2>
+<a class="my-3 btn btn-primary" href="@Url.Action("Create", "Test")">
+	Dodaj klienta
+</a>
+<table class="table table-striped">
 	<tr>
 		<th>Id</th>
 		<th>Name</th>
@@ -9,6 +16,8 @@
 		<th>PESEL</th>
 		<th>BirthYear</th>
 		<th>Płeć</th>
+		<th></th>
+		<th></th>
 	</tr>
 	@foreach (var klient in Model) {
 		<tr>
@@ -18,6 +27,16 @@
 			<td>@klient.PESEL</td>
 			<td>@klient.BirthYear</td>
 			<td>@klient.Płeć</td>
+			<td>
+				<a class="btn btn-info px-4 py-1 text-decoration-none rounded" href="@Url.Action("Edit", "Test", new { id = klient.Id })">
+					Edycja
+				</a>
+			</td>
+			<td>
+				<a class="btn btn-danger px-4 py-1 text-decoration-none rounded" href="@Url.Action("Delete", "Test", new { id = klient.Id })">
+					Usuń
+				</a>
+			</td>
 		</tr>
 	}
 </table>

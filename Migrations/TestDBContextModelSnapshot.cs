@@ -21,7 +21,7 @@ namespace Zadanie_5.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Zadanie_5.Models.Klient", b =>
+            modelBuilder.Entity("Zadanie_5.Models.Klienci", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace Zadanie_5.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Klient");
+                    b.ToTable("Klienci");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,90 @@
+﻿@{
+	ViewBag.Title = "Create";
+}
+
+@model Klienci
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage)) {
+	<div class="bg-success text-white p-2 rounded fs-6">
+		@ViewBag.SuccessMessage
+	</div>
+}
+
+@{
+	var errors = ViewData.ModelState.Values
+		.SelectMany(v => v.Errors)
+		.Select(e => e.ErrorMessage)
+		.ToList();
+}
+
+@if (errors.Any()) {
+	<div class="alert alert-danger rounded fs-6">
+		<ul class="m-0">
+			@foreach (var error in errors) {
+				<li>@error</li>
+			}
+		</ul>
+	</div>
+}
+
+<form class="row g-3" asp-action="Create" asp-controller="Test" method="post">
+	<div class="col-md-6">
+		<label class="form-label" for="Name">
+			Podaj imię:
+		</label>
+		<input class="form-control" type="text" id="Name" name="Name" maxlength="50" required />
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="Surname">
+		  Podaj nazwisko
+		</label>
+		<input class="form-control" type="text" id="Surname" name="Surname" maxlength="50" required />
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="PESEL">
+		  Podaj numer PESEL
+		</label>
+		<input class="form-control" type="text" id="PESEL" name="PESEL" minlength="10" maxlength="11" required />
+	</div>
+
+  <div class="col-md-6">
+		<label class="form-label" for="BirthYear">
+			Rok urodzenia:
+  	</label>
+		<input class="form-control" style="cursor: not-allowed;" type="number" id="BirthYear" name="BirthYear" readonly />
+	</div>
+
+  <div class="col-md-6">
+		<label class="form-label" for="Płeć">
+		  Płeć
+		</label>
+		<input class="form-control" style="cursor: not-allowed;" type="number" id="Płeć" name="Płeć" readonly />
+	</div>
+
+  <div class="col-12">
+		<button class="btn btn-primary" id="submit-btn" type="submit">Zapisz</button>
+	</div>
+</form>
+<script>
+	const genderElement = document.getElementById("Płeć");
+	const birthyearElement = document.getElementById("BirthYear");
+	const peselElement = document.getElementById("PESEL");
+	peselElement.addEventListener("change", () => {
+		const pesel = peselElement.value;
+		genderElement.value = pesel[9] % 2 == 0 ? 1 : 2;
+		let month = parseInt(pesel.substring(2, 4));
+		let year = parseInt(pesel.substring(0, 2));
+		if (month <= 12) {
+			year += 1900;
+		} else if (month <= 32) {
+			year += 2000;
+		} else if (month <= 52) {
+			year += 2100;
+		} else if (month <= 72) {
+			year += 1800;
+		}
+		birthyearElement.value = year;
+	});
+</script>
