@@ -5,9 +5,22 @@
 @model IEnumerable<Klienci>
 
 <h2 class="text-center">Klienci</h2>
-<a class="my-3 btn btn-primary" href="@Url.Action("Create", "Test")">
-	Dodaj klienta
-</a>
+<div class="d-flex flex-row py-3 gap-1">
+	<a class="btn btn-primary" href="@Url.Action("Create", "Test")">
+		Dodaj klienta
+	</a>
+	<a class="btn btn-secondary" href="@Url.Action("Import", "Test")">
+		Importuj klientów z CSV
+	</a>
+	<div class="bg-secondary text-white rounded d-inline-block w-auto">
+		<div class="d-flex flex-row w-auto align-items-center">
+			<p class="m-0 px-2">Eksportuj klientów</p>
+			<a class="btn btn-primary" href="@Url.Action("Export", "Test", new { type = 1 })">CSV</a>
+			<a class="btn btn-primary" href="@Url.Action("Export", "Test", new { type = 2 })">XLSX</a>
+		</div>
+	</div>
+</div>
+
 <table class="table table-striped">
 	<tr>
 		<th>Id</th>

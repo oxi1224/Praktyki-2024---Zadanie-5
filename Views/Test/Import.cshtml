@@ -1,0 +1,24 @@
+﻿@{
+  ViewBag.Title = "Import";
+}
+@if (ViewBag.Error != null) {
+	<div class="alert alert-danger rounded fs-6">
+		@ViewBag.Error
+	</div>
+}
+@if (ViewBag.Success != null) {
+	<div class="alert alert-success rounded fs-6">
+		@ViewBag.Success
+	</div>
+}
+<form class="row g-3" asp-action="Import" asp-controller="Test" method="post" enctype="multipart/form-data">
+	<div class="col-md-6">
+		<label class="form-label" for="File">
+			Wybierz plik do importowania
+		</label>
+		<input class="form-control" type="file" id="File" name="File" required accept=".csv,.xlsx"/>
+	</div>
+	<div class="col-12">
+		<button class="btn btn-primary" id="submit-btn" type="submit">Importuj klientów</button>
+	</div>
+</form>
